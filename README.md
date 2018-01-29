@@ -30,7 +30,7 @@
 > 对安装好的pip进行升级：     `pip install --upgrade pip`
     
 #### 2、安装clang编辑器
-##### 可以采用yum和apt安装：
+   ##### 可以采用yum和apt安装：
 > yum安装 :    `yum install clang`  </br>
 > apt安装 :      `sudo apt-get install clang`
 
