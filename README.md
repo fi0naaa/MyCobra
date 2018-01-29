@@ -1,5 +1,5 @@
 # MyCobra
-
+[![asciicast](https://raw.githubusercontent.com/wufeifei/cobra/master/docs/report_03.jpg)](https://github.com/DurianCoder/MyCobra/tree/master/docs)
 ## Introduction（介绍）
   `MyCobra`工具是一个基于`Cobra`和`libclang`的个性化代码检测工具。 
 > 1）、忘记日志打印等较为较为明显的问题，可以通过正则表达式直接匹配出。可以通过xml文件添加匹配规则，对于不同类型的问题，进行不同的逻辑处理，如是否打印了日志，虚函数是否写了文档注释等问题。</br>
