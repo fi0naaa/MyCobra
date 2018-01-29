@@ -1,5 +1,6 @@
 # MyCobra
-![mycobra](https://github.com/DurianCoder/MyCobra/blob/master/docs/cmd.png "mycobra文档")(https://github.com/DurianCoder/MyCobra/tree/master/docs)  
+![mycobra](https://github.com/DurianCoder/MyCobra/blob/master/docs/cmd.png "mycobra文档")
+[mycobra]:https://github.com/DurianCoder/MyCobra/tree/master/docs
 
 ## Introduction（介绍）
   `MyCobra`工具是一个基于`Cobra`和`libclang`的个性化代码检测工具。 
