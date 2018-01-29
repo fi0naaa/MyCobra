@@ -160,31 +160,91 @@ def scan_single_rule(target_directory, single_rule):
         raise
 
 
+# brief : 返回文件中函数信息
+# node : cur节点
+# f : 要检查的文件
+# funs_list : 结果列表
+# return ： f 文件包含的函数信息（所在的文件，起始和结束的行号，以及函数类型）
+def get_funs_info(node, f, funs_list):
+    for c in node.get_children():
+        children = get_funs_info(c, f, funs_list)
+    if node.is_definition() and not node.spelling == "" and str(node.location.file) == f:
+        if node.kind == CursorKind.FUNCTION_DECL or node.kind == CursorKind.CXX_METHOD:
+            fun = {}
+            fun_detail = fun[node.spelling or node.displayname] = {}
+            fun_detail["start_line"] = node.extent.start.line
+            fun_detail["end_line"] = node.extent.end.line
+            fun_detail["kind"] = str(node.kind)
+            fun_detail["file"] = str(node.location.file)
+            fun_detail["vul"] = {}
+            funs_list.append(fun)
+    return funs_list
+
+
+# 返回行号所在的函数list, 可能存在内部类，可能在多个函数里
+def get_function_list_by_line_num(var, grep_result, funs_list):
+    var_line_results = grep_result.strip().split("\n")
+    # 当匹配到的行数大于1，则为存在变量重复赋值
+    if len(var_line_results) > 1:
+        # 38:  durian = aResultSet->add_int(1);
+        # 根据：截取 var_line_results
+        vul_list = {}
+        for var_reevaluate_line in var_line_results:
+            line_num = var_reevaluate_line.split(":")[0]
+            code_content = var_reevaluate_line.split(":")[1]
+            # 判断语句在哪个函数
+            for fun in funs_list:
+                for fun_name, fun_detail in fun.items():
+                    if fun_detail["start_line"] <= int(line_num) <= fun_detail["end_line"]:
+                        var_detail = fun_detail["vul"][var] = fun_detail["vul"].get(var, {})
+                        var_detail["line:" + line_num] = code_content
+                    continue
+    return funs_list
+
+
+# evaluate funs_list, if vul_num < 2, del
+def evaluate_funs_list(funs_list):
+    lens = len(funs_list)
+    while lens > 0:
+        for fun_name, fun_detail in funs_list[lens-1].items():
+            for var, var_detail in fun_detail["vul"].items():
+                if len(var_detail) < 2:
+                    fun_detail["vul"].pop(var)
+            if len(fun_detail["vul"]) == 0:
+                funs_list.pop(lens-1)
+            lens -= 1
+    return funs_list
+
+
+# 获取cur对应AST中的变量（即cur.kind为Cursorkind.VAR_DECL的var）
+# return: vars的一个去重的list集合
+# todo:将这个方法抽象到工具库
+def get_vars(cur):
+    # 这里展示的是一个提取每个分词的方法。
+    var_list = []
+    for token in cur.get_tokens():
+        # 针对一个节点，调用get_tokens的方法。
+        cur = token.cursor
+        if cur.kind == CursorKind.VAR_DECL and cur.spelling != "":
+            var_list.append(cur.spelling)
+    # 去重，list和set互相转化
+    return list(set(var_list))
+
+
 def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=None, framework=None, file_count=0,
          extension_count=0):
     r = Rule()
-
     # 获取配置文件中的所有缺陷
     vulnerabilities = r.vulnerabilities
-
     # 获取配置文件中的语言
     languages = r.languages
     frameworks = r.frameworks
-
     # 如果special_rules为None，获取所有规则
     rules = r.rules(special_rules)
     find_vulnerabilities = []
 
     # cve_vuls = scan_cve(target_directory)
     # find_vulnerabilities += cve_vuls
-
-    # def store(result):
-    #     if result is not None and isinstance(result, list) is True:
-    #         for res in result:
-    #             res.file_path = res.file_path.replace(target_directory, '')
-    #             find_vulnerabilities.append(res)
-    #     else:
-    #         logger.debug('[SCAN] [STORE] Not found vulnerabilities on this rule!')
 
     def my_store(result):
         if result is not None and isinstance(result, list) is True:
@@ -193,80 +253,12 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
         else:
             logger.debug('[SCAN] [STORE] Not found vulnerabilities on this rule!')
 
-    # brief : 返回文件中函数信息
-    # node : cur节点
-    # f : 要检查的文件
-    # funs_list : 结果列表
-    # return ： f 文件包含的函数信息（所在的文件，起始和结束的行号，以及函数类型）
-    def get_funs_info(node, f, funs_list):
-        for c in node.get_children():
-            children = get_funs_info(c, f, funs_list)
-        if node.is_definition() and not node.spelling == "" and str(node.location.file) == f:
-            if node.kind == CursorKind.FUNCTION_DECL or node.kind == CursorKind.CXX_METHOD:
-                fun = {}
-                fun_detail = fun[node.spelling or node.displayname] = {}
-                fun_detail["start_line"] = node.extent.start.line
-                fun_detail["end_line"] = node.extent.end.line
-                fun_detail["kind"] = str(node.kind)
-                fun_detail["file"] = str(node.location.file)
-                fun_detail["vul"] = {}
-                funs_list.append(fun)
-        return funs_list
-
-    # 返回行号所在的函数list, 可能存在内部类，可能在多个函数里
-    def get_function_list_by_line_num(var, grep_result, funs_list):
-        var_line_results = grep_result.strip().split("\n")
-        # 当匹配到的行数大于1，则为存在变量重复赋值
-        if len(var_line_results) > 1:
-            # 38:  durian = aResultSet->add_int(1);
-            # 根据：截取 var_line_results
-            vul_list = {}
-            for var_reevaluate_line in var_line_results:
-                line_num = var_reevaluate_line.split(":")[0]
-                code_content = var_reevaluate_line.split(":")[1]
-                # 判断语句在哪个函数
-                for fun in funs_list:
-                    for fun_name, fun_detail in fun.items():
-                        if fun_detail["start_line"] <= int(line_num) <= fun_detail["end_line"]:
-                            var_detail = fun_detail["vul"][var] = fun_detail["vul"].get(var, {})
-                            var_detail["line:" + line_num] = code_content
-                        continue
-        return  funs_list
-
-    # evaluate funs_list, if vul_num < 2, del
-    def evaluate_funs_list(funs_list):
-        lens = len(funs_list)
-        while lens > 0:
-            for fun_name, fun_detail in funs_list[lens-1].items():
-                for var, var_detail in fun_detail["vul"].items():
-                    if len(var_detail) < 2:
-                        fun_detail["vul"].pop(var)
-                if len(fun_detail["vul"]) == 0:
-                    funs_list.pop(lens-1)
-                lens -= 1
-        return funs_list
-
     # 递归扫描target中的cpp文件，识别变量重复赋值缺陷、
     def analysis_var_reevaluate(directory):
         var_reevaluate_list = []
         files = os.listdir(directory)
         # 获取clang接口
         index = clang.cindex.Index.create()
-
-        # 获取cur对应AST中的变量（即cur.kind为Cursorkind.VAR_DECL的var）
-        # return: vars的一个去重的list集合
-        # todo:将这个方法抽象到工具库
-        def get_vars(cur):
-            # 这里展示的是一个提取每个分词的方法。
-            var_list = []
-            for token in cur.get_tokens():
-                # 针对一个节点，调用get_tokens的方法。
-                cur = token.cursor
-                if cur.kind == CursorKind.VAR_DECL and cur.spelling != "":
-                    var_list.append(cur.spelling)
-            # 去重，list和set互相转化
-            return list(set(var_list))
-
         for f in files:
             f = os.path.join(directory, f)
             if os.path.isfile(f):
@@ -305,11 +297,9 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
                 my_store(var_reevaluate_list)
             elif os.path.isdir(f):
                 analysis_var_reevaluate(f)
-        # evaluate_funs_list(var_reevaluate_list)
         return var_reevaluate_list
 
     analysis_var_reevaluate(target_directory)
-    # my_store(analysis_var_reevaluate(target_directory))
 
     try:
         pool = multiprocessing.Pool()
