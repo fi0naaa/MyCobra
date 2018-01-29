@@ -1,5 +1,5 @@
 # MyCobra
-![mycobra](https://github.com/DurianCoder/MyCobra/blob/master/docs/cmd.png "mycobra文档")
+[![mycobra]](https://github.com/DurianCoder/MyCobra/blob/master/docs/cmd.png "mycobra文档")
 [mycobra]:https://github.com/DurianCoder/MyCobra/tree/master/docs
 
 ## Introduction（介绍）
