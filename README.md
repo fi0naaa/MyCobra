@@ -19,9 +19,3 @@ Cobra是一款**源代码安全审计**工具，支持检测多种开发语言�
 #### GUI/CLI/API Mode（命令行模式和API模式）
 > 提供本地Web Server服务，可使用GUI可视化操作，也可支持本地API接口，方便和其它系统（发布系统、CI等）对接扩展。
 
-## Screenshot（截图）
-[![report01](https://raw.githubusercontent.com/wufeifei/cobra/master/docs/report_01.jpg)](https://wufeifei.github.io/cobra/api)
-[![report02](https://raw.githubusercontent.com/wufeifei/cobra/master/docs/report_02.jpg)](https://wufeifei.github.io/cobra/api)
-
-## Links（链接）
-- [Cobra文档](https://wufeifei.github.io/cobra/)
