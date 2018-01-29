@@ -1,14 +1,14 @@
 # MyCobra
 
 ## Introduction（介绍）
-  MyCobra工具是一个基于Cobra和libclang的个性化代码检测工具。 
+  `MyCobra`工具是一个基于`Cobra`和`libclang`的个性化代码检测工具。 
 > 1）、忘记日志打印等较为较为明显的问题，可以通过正则表达式直接匹配出。可以通过xml文件添加匹配规则，对于不同类型的问题，进行不同的逻辑处理，如是否打印了日志，虚函数是否写了文档注释等问题。</br>
 > 2）、在cobra上添加了clang的python绑定libclang，利用clang对C family 语言进行词法分析和语法分析，将源码生成对应的AST,通过遍历AST来分析函数内可能存在的变量重复赋值问题。
         
 ## Features（特点）
 
 #### Multi-language Supported（支持多种开发语言）
-> 支持JAVA、PHP(基于ly)、C系列(基于libclang)等开发语言以及伪代码检测，并支持数十种类型文件。
+> 支持JAVA、PHP(基于phply)、C系列(基于libclang)等开发语言以及伪代码检测，并支持数十种类型文件。
 
 #### Multi-Vulnerabilities Supported（支持多种漏洞类型）
 > 暂时开放几十条漏洞规则匹配，用户可以自定义，后续将继续更新。
@@ -30,7 +30,6 @@
 > 对安装好的pip进行升级：     `pip install --upgrade pip`
     
 #### 2、安装clang编辑器
-   ##### 可以采用yum和apt安装：
 > yum安装 :    `yum install clang`  </br>
 > apt安装 :      `sudo apt-get install clang`
 
