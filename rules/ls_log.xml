@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cobra document="https://github.com/wufeifei/cobra/wiki/vulnerabilities">
+    <vulnerability name="1" msg="未打印入口日志">
+        <![CDATA[LogFlow("进入[LS_算法接入_子单委托]");]]>
+    </vulnerability>
+    <vulnerability name="2" msg="未打印输入参数">
+        <![CDATA[[输入包文信息打印]]]>
+    </vulnerability>
+    <vulnerability name="3" msg="未打印调用报错">
+        <![CDATA[[函数调用报错打印][子单委托处理]]]>
+    </vulnerability>
+    <vulnerability name="4" msg="未打印出口日志">
+        <![CDATA[LogFlow("离开[LS_算法接入_子单委托]");]]>
+    </vulnerability>
+    <vulnerability name="5" msg="未打印接口调用耗时">
+        <![CDATA[[耗时打印][LS_算法接入_子单委托][@tmp_mill]]]>
+    </vulnerability>
+</cobra>

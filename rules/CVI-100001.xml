@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cobra document="https://github.com/wufeifei/cobra">
+    <name value="LS算法_未打印入口日志"/>
+    <language value="ls"/>
+    <match mode="regex-only-match"><![CDATA[LogFlow\(\"进入\[LS_算法接入_子单委托\]\"\);]]></match>
+    <level value="2"/>
+    <test>
+        <case assert="true"><![CDATA[LogFlow("进入[LS_算法接入_子单委托]");]]></case>
+    </test>
+    <solution>
+        ## 安全分线
+        没有打印入口日志。
+
+        ## 修复方案
+        添加入口日志打印。
+    </solution>
+    <status value="on"/>
+    <author name="jy" email="jiangying1110@outlook.com"/>
+</cobra>

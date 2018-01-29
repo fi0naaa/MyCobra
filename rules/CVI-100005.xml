@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cobra document="https://github.com/wufeifei/cobra">
+    <name value="LS算法_未打印调用耗时"/>
+    <language value="ls"/>
+    <match mode="regex-only-match"><![CDATA[\[耗时打印\]\[LS_算法接入_子单委托\]\[@tmp_mill\]]]></match>
+    <level value="2"/>
+    <test>
+        <case assert="true"><![CDATA[[耗时打印][LS_算法接入_子单委托][@tmp_mill]]]></case>
+    </test>
+    <solution>
+        ## 安全风险
+        没有打印调用耗时。
+
+        ## 修复方案
+        添加调用耗时打印。
+    </solution>
+    <status value="on"/>
+    <author name="jy" email="jiangying1110@outlook.com"/>
+</cobra>

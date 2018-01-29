@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cobra document="https://github.com/wufeifei/cobra">
+    <name value="虚函数没有文档注释"/>
+    <language value="c++"/>
+    <match mode="regex-only-match"><![CDATA[virtual\s*.*\s*\(.*\)\s*=\s*0]]></match>
+    <level value="2"/>
+    <test>
+        <case assert="true"><![CDATA[virtual int GetStockInfo(std::string sReportCode, int iMarketNo, TStockInfo &StockInfo, std::string &sErrorInfo) = 0;]]></case>
+        <case assert="true"><![CDATA[virtual int GetMarketInfo(std::string sMarketChar, TMarketInfo &MarketInfo, std::string &sErrorInfo) = 0;]]></case>
+    </test>
+    <solution>
+        ## 安全风险
+        虚函数没有写文档注释，不方便阅读和维护。
+
+        ## 修复方案
+        添加相应的文档注释。
+    </solution>
+    <status value="on"/>
+    <author name="jy" email="jiangying1110@outlook.com"/>
+</cobra>

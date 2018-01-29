@@ -1,0 +1,365 @@
+{
+  "s5daderdv3mh": {
+    "extension": 7,
+    "language": "python",
+    "vulnerabilities": [
+      {
+        "main": {
+          "kind": "CursorKind.FUNCTION_DECL",
+          "start_line": 29,
+          "end_line": 56,
+          "vul": {
+            "durian": {
+              "line:43": "  durian = aResultSet->add_int(durian);\r",
+              "line:45": "  durian = cResultSet->sub_int(durian);",
+              "line:44": "  durian = bResultSet->sub_int(durian);\r"
+            },
+            "jack": {
+              "line:50": "  jack = gResultSet->sub_int(durian);",
+              "line:49": "  jack = bResultSet->sub_int(durian);\r",
+              "line:48": "  jack = eResultSet->add_int(durian);\r"
+            }
+          },
+          "file": "/root/test/input/person.cpp"
+        }
+      },
+      {
+        "main": {
+          "kind": "CursorKind.FUNCTION_DECL",
+          "start_line": 29,
+          "end_line": 52,
+          "vul": {
+            "durian": {
+              "line:41": "  durian = cResultSet->sub_int(durian);",
+              "line:40": "  durian = bResultSet->sub_int(durian);\r",
+              "line:39": "  durian = aResultSet->add_int(durian);\r"
+            },
+            "jack": {
+              "line:46": "  jack = gResultSet->sub_int(durian);",
+              "line:45": "  jack = bResultSet->sub_int(durian);\r",
+              "line:44": "  jack = eResultSet->add_int(durian);\r"
+            }
+          },
+          "file": "/root/test/input/human.cpp"
+        }
+      },
+      {
+        "main": {
+          "kind": "CursorKind.FUNCTION_DECL",
+          "start_line": 30,
+          "end_line": 57,
+          "vul": {
+            "durian": {
+              "line:46": "  durian = cResultSet->sub_int(durian);",
+              "line:45": "  durian = bResultSet->sub_int(durian);\r",
+              "line:44": "  durian = aResultSet->add_int(durian);\r"
+            },
+            "jack": {
+              "line:50": "  jack = bResultSet->sub_int(durian);\r",
+              "line:51": "  jack = gResultSet->sub_int(durian);",
+              "line:49": "  jack = eResultSet->add_int(durian);\r"
+            }
+          },
+          "file": "/root/test/input/src/sperson.cpp"
+        }
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全分线\n        没有打印入口日志。\n\n        ## 修复方案\n        添加入口日志打印。",
+        "file_path": "/root/test/input/ls/log3.ls",
+        "rule_name": "LS算法_未打印入口日志",
+        "rule_id": "100001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全分线\n        没有打印入口日志。\n\n        ## 修复方案\n        添加入口日志打印。",
+        "file_path": "/root/test/input/ls/log3.ls",
+        "rule_name": "LS算法_未打印入口日志",
+        "rule_id": "100001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全分线\n        没有打印入口日志。\n\n        ## 修复方案\n        添加入口日志打印。",
+        "file_path": "/root/test/input/ls/log3.ls",
+        "rule_name": "LS算法_未打印入口日志",
+        "rule_id": "100001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全分线\n        没有打印出口日志。\n\n        ## 修复方案\n        添加出口日志打印。",
+        "file_path": "/root/test/input/src/slogin.ls",
+        "rule_name": "LS算法_未打印出口日志打印",
+        "rule_id": "100004",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全分线\n        没有打印出口日志。\n\n        ## 修复方案\n        添加出口日志打印。",
+        "file_path": "/root/test/input/src/slogin.ls",
+        "rule_name": "LS算法_未打印出口日志打印",
+        "rule_id": "100004",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全分线\n        没有打印出口日志。\n\n        ## 修复方案\n        添加出口日志打印。",
+        "file_path": "/root/test/input/src/slogin.ls",
+        "rule_name": "LS算法_未打印出口日志打印",
+        "rule_id": "100004",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全风险\n        没有打印调用耗时。\n\n        ## 修复方案\n        添加调用耗时打印。",
+        "file_path": "/root/test/input/src/slogin.ls",
+        "rule_name": "LS算法_未打印调用耗时",
+        "rule_id": "100005",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "level": "2",
+        "solution": "## 安全风险\n        没有打印调用耗时。\n\n        ## 修复方案\n        添加调用耗时打印。",
+        "file_path": "/root/test/input/src/slogin.ls",
+        "rule_name": "LS算法_未打印调用耗时",
+        "rule_id": "100005",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "7",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "8",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "9",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "10",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "11",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "12",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "13",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "14",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "17",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "20",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "23",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "25",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "27",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "29",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "30",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "31",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "32",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "33",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "34",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "35",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/algofunction.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "6",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/src/sperson.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      },
+      {
+        "commit_author": "Unknown",
+        "line_num": "7",
+        "level": "2",
+        "solution": "## 安全风险\n        虚函数没有写文档注释，不方便阅读和维护。\n\n        ## 修复方案\n        添加相应的文档注释。",
+        "file_path": "/root/test/input/src/sperson.cpp",
+        "rule_name": "虚函数没有文档注释",
+        "rule_id": "110001",
+        "commit_time": "Unknown"
+      }
+    ],
+    "target_directory": "/root/test/input/",
+    "push_rules": 6,
+    "framework": "Unknown Framework",
+    "file": 19,
+    "target": "/root/test/input"
+  }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cobra document="https://github.com/wufeifei/cobra/wiki/languages">
+    <language name="*">
+        <extension value=".*"/>
+    </language>
+    <language name="Python" chiefly="true">
+        <extension value=".py"/>
+    </language>
+    <language name="C">
+        <extension value=".h"/>
+        <extension value=".c"/>
+    </language>
+    <language name="C++">
+        <extension value=".c"/>
+        <extension value=".cpp"/>
+    </language>
+    <language name="C#">
+        <extension value=".cs"/>
+    </language>
+
+    <!-- 下面是自定义语言 -->
+    <!-- 伪代码 ls-->
+    <language name="LS">
+        <extension value=".ls"/>
+    </language>
+
+</cobra>
