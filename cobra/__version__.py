@@ -13,10 +13,12 @@ __author_email__ = 'feei@feei.cn'
 __license__ = 'MIT License'
 __copyright__ = 'Copyright (C) 2017 Feei. All Rights Reserved'
 __introduction__ = """
-    ,---.     |
-    |    ,---.|---.,---.,---.
-    |    |   ||   ||    ,---|
-    `---``---``---``    `---^ v{version}
+                ___      _               
+  /\/\  _   _  / __\___ | |__  _ __ __ _ 
+ /    \| | | |/ /  / _ \| '_ \| '__/ _` |
+/ /\/\ \ |_| / /__| (_) | |_) | | | (_| |
+\/    \/\__, \____/\___/|_.__/|_|  \__,_|
+        |___/                             v{version}
 
 GitHub: https://github.com/wufeifei/cobra
 

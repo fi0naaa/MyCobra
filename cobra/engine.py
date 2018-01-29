@@ -254,6 +254,7 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
             logger.debug('[SCAN] [STORE] Not found vulnerabilities on this rule!')
 
     # 递归扫描target中的cpp文件，识别变量重复赋值缺陷、
+    # todo 多线程提高性能
     def analysis_var_reevaluate(directory):
         var_reevaluate_list = []
         files = os.listdir(directory)
@@ -507,6 +508,7 @@ class SingleRule(object):
         origin_vulnerabilities = origin_results.strip().split("\n")
 
         # 判断文件f的line_num行上面是否有写文档注释
+        # todo 将文档注释标识符写入配置文件提高代码通用性，将方法写到util.py中
         def read_before_line(f, fun_line_num):
             line_num = int(fun_line_num)
             while line_num > 1:
@@ -532,7 +534,8 @@ class SingleRule(object):
             inc_files.append(vulnerability.file_path)
 
             # cvi rules start with '110' is function annotation
-            if vulnerability.id[:3] == '110' and vulnerability.file_path.endswith(".cpp"):
+            # todo 将语言文件后缀从配置文件中获取，通过配置规则来添加不同语言的注释检查
+            if vulnerability.id[:3] == '110' and vulnerability.file_path.endswith(".cpp" or ".c"):
                 vir_f = open(vulnerability.file_path, 'r')
                 have_annotation = read_before_line(vir_f, vulnerability.line_number)
                 if not have_annotation:
