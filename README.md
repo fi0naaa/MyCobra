@@ -24,19 +24,19 @@
 
 ## 安装：
 #### 1、安装pip
-> 检查linux是否有安装python-pip包：   'yum install python-pip' </br>
-> 没有python-pip包就执行命令：     'yum -y install epel-release' </br>
-> 执行成功之后，再次执行：     'yum install python-pip' </br>
-> 对安装好的pip进行升级：     'pip install --upgrade pip'
+> 检查linux是否有安装python-pip包：   `yum install python-pip` </br>
+> 没有python-pip包就执行命令：     `yum -y install epel-release` </br>
+> 执行成功之后，再次执行：     `yum install python-pip` </br>
+> 对安装好的pip进行升级：     `pip install --upgrade pip`
     
 #### 2、安装clang编辑器
 ##### 可以采用yum和apt安装：
-> yum安装 :    yum install clang  </br>
-> apt安装 :      sudo apt-get install clang
+> yum安装 :    `yum install clang`  </br>
+> apt安装 :      `sudo apt-get install clang`
 
 #### 3、配置python bindings:
-> 使用pip安装：sudo pip install clang==版本号
+> 使用pip安装：`sudo pip install clang==版本号`
 ##### 注意：clang的版本号和libclang的版本号必须一致。
 
 #### 4、安装MyCobra依赖：
-> pip install -r requirement.txt
+> `pip install -r requirement.txt`
