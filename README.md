@@ -44,6 +44,8 @@
 > `git clone https://github.com/DurianCoder/MyCobra.git`
 
 #### 6、测试
-> cli检测文件target_file，输出到文件output_file：</br>`python cobra.py -t target_file -f json -o output_file -r cvi-100001,cvi-100002,cvi-100003,cvi-100004,cvi-100005,cvi-110001,cvi-110002` </br>
-</br>
-> cli输出到邮箱:</br>`python cobra.py -t target_file -f json -o your_email -r cvi-100001,cvi-100002,cvi-100003,cvi-100004,cvi-100005,cvi-110001,cvi-110002`
+> cli检测文件target_file，输出到文件output_file：</br>
+    `python cobra.py -t target_file -f json -o output_file -r cvi-100001,cvi-100002,cvi-100003,cvi-100004,cvi-100005,cvi-110001,cvi-110002` </br>
+
+> cli输出到邮箱:</br>
+    `python cobra.py -t target_file -f json -o your_email -r cvi-100001,cvi-100002,cvi-100003,cvi-100004,cvi-100005,cvi-110001,cvi-110002`
