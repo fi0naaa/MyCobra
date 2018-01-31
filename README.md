@@ -39,3 +39,10 @@
 
 #### 4、安装MyCobra依赖：
 > `pip install -r requirement.txt`
+
+#### 5、安装MyCobra：
+> `git clone https://github.com/DurianCoder/MyCobra.git`
+
+#### 6、测试
+> cli检测文件target_file，输出到文件output_file：`python cobra.py -t target_file -f json -o output_file -r cvi-100001,cvi-100002,cvi-100003,cvi-100004,cvi-100005,cvi-110001,cvi-110002` </br>
+> cli输出到邮箱:`python cobra.py -t target_file -f json -o your_email -r cvi-100001,cvi-100002,cvi-100003,cvi-100004,cvi-100005,cvi-110001,cvi-110002`
