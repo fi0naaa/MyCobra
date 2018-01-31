@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cobra document="https://github.com/wufeifei/cobra">
+    <name value="Java接口声明的函数没有文档注释"/>
+    <language value="java"/>
+    <match mode="regex-only-match"><![CDATA[.*abstract.*\(.*\).*;$]]></match>
+    <level value="2"/>
+    <test>
+        <case assert="true"><![CDATA[MedicalCard queryMedicalCardByPatientId(Number patientId) throws Exception;]]></case>
+        <case assert="true"><![CDATA[List<PatientRegistEntity> queryPatientRegistByPatientIdAndDate(Number patientId, String registTime) throws Exception;]]></case>
+    </test>
+    <solution>
+        ## 安全风险
+        JAVA接口声明的函数没有写文档注释，不方便阅读和维护。
+        ## 修复方案
+        添加相应的文档注释。
+    </solution>
+    <status value="on"/>
+    <author name="jy" email="jiangying1110@outlook.com"/>
+</cobra>

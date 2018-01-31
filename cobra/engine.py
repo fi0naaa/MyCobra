@@ -235,16 +235,14 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
          extension_count=0):
     r = Rule()
     # 获取配置文件中的所有缺陷
-    vulnerabilities = r.vulnerabilities
+    # vulnerabilities = r.vulnerabilities
+
     # 获取配置文件中的语言
     languages = r.languages
-    frameworks = r.frameworks
+
     # 如果special_rules为None，获取所有规则
     rules = r.rules(special_rules)
     find_vulnerabilities = []
-
-    # cve_vuls = scan_cve(target_directory)
-    # find_vulnerabilities += cve_vuls
 
     def my_store(result):
         if result is not None and isinstance(result, list) is True:
@@ -252,6 +250,46 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
                 find_vulnerabilities.append(res)
         else:
             logger.debug('[SCAN] [STORE] Not found vulnerabilities on this rule!')
+
+    # detective single file reevaluate
+    def detect_single_file_reevaluate(index, directory, f, var_reevaluate_list=[]):
+        f = os.path.join(directory, f)
+        if os.path.isfile(f):
+            if f.lower()[-4:] == ".cpp":
+                tu = index.parse(f)
+                var_reevaluate_list = get_funs_info(tu.cursor, f, [])
+                # 获取cpp文件中的变量
+                vars_list = get_vars(tu.cursor)
+                # 遍历每个变量，grep查询
+                for var in vars_list:
+                    # grep命令判断变量后的赋值语句是否包含特定字符串
+                    # -s Suppress error messages / -n Show Line number / -r Recursive / -P Perl regular expression
+                    # grep -P -n "durian\s?=\s?.*ResultSet*" person.cpp
+                    param = [Tool().grep, "-s", "-n", "-r", "-P"] + [var + "\s?=\s?.*ResultSet*", f]
+                    try:
+                        p = subprocess.Popen(param, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        result, error = p.communicate()  # communicate(stdin、timeout) return stdout and std err
+                    except Exception as e:
+                        traceback.print_exc()
+                        logger.critical('match exception ({e})'.format(e=e.message))
+                        continue
+                    try:
+                        var_line_result = result.decode('utf-8')
+                        error = error.decode('utf-8')
+                        # exists result
+                        if var_line_result == '' or var_line_result is None:
+                            logger.debug("没匹配到变量重复赋值！")
+                            continue
+                        var_reevaluate_list = get_function_list_by_line_num(var, var_line_result, var_reevaluate_list)
+
+                    except AttributeError as e:
+                        pass
+                    if len(error) is not 0:
+                        logger.critical("grep查询变量有误！")
+            var_reevaluate_list = evaluate_funs_list(var_reevaluate_list)
+            my_store(var_reevaluate_list)
+        elif os.path.isdir(f):
+            analysis_var_reevaluate(f)
 
     # 递归扫描target中的cpp文件，识别变量重复赋值缺陷、
     # todo 多线程提高性能
@@ -261,49 +299,13 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
         # 获取clang接口
         index = clang.cindex.Index.create()
         for f in files:
-            f = os.path.join(directory, f)
-            if os.path.isfile(f):
-                if f.lower()[-4:] == ".cpp":
-                    tu = index.parse(f)
-                    var_reevaluate_list = get_funs_info(tu.cursor, f, [])
-                    # 获取cpp文件中的变量
-                    vars_list = get_vars(tu.cursor)
-                    # 遍历每个变量，grep查询
-                    for var in vars_list:
-                        # grep命令判断变量后的赋值语句是否包含特定字符串
-                        # -s Suppress error messages / -n Show Line number / -r Recursive / -P Perl regular expression
-                        # grep -P -n "durian\s?=\s?.*ResultSet*" person.cpp
-                        param = [Tool().grep, "-s", "-n", "-r", "-P"] + [var+"\s?=\s?.*ResultSet*", f]
-                        try:
-                            p = subprocess.Popen(param, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                            result, error = p.communicate()  # communicate(stdin、timeout) return stdout and std err
-                        except Exception as e:
-                            traceback.print_exc()
-                            logger.critical('match exception ({e})'.format(e=e.message))
-                            continue
-                        try:
-                            var_line_result = result.decode('utf-8')
-                            error = error.decode('utf-8')
-                            # exists result
-                            if var_line_result == '' or var_line_result is None:
-                                logger.debug("没匹配到变量重复赋值！")
-                                continue
-                            var_reevaluate_list = get_function_list_by_line_num(var, var_line_result, var_reevaluate_list)
-
-                        except AttributeError as e:
-                            pass
-                        if len(error) is not 0:
-                            logger.critical("grep查询变量有误！")
-                var_reevaluate_list = evaluate_funs_list(var_reevaluate_list)
-                my_store(var_reevaluate_list)
-            elif os.path.isdir(f):
-                analysis_var_reevaluate(f)
+            # pool.apply_async(detect_single_file_reevaluate, args=(index, directory, f))
+            detect_single_file_reevaluate(index, directory, f)
         return var_reevaluate_list
-
-    analysis_var_reevaluate(target_directory)
 
     try:
         pool = multiprocessing.Pool()
+        analysis_var_reevaluate(target_directory)
         if len(rules) == 0:
             logger.critical('no rules!')
             return False
@@ -369,6 +371,8 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
     #     if len(diff_rules) > 0:
     #         logger.info('[SCAN] Not Trigger Rules ({l}): {r}'.format(l=len(diff_rules), r=','.join(diff_rules)))
 
+    logger.info('[SCAN] found vulnerability!:' + json.dumps(find_vulnerabilities, indent=4))
+
     # completed running data
     if s_sid is not None:
         Running(s_sid).data({
@@ -377,7 +381,6 @@ def scan(target_directory, a_sid=None, s_sid=None, special_rules=None, language=
             'result': {
                 'vulnerabilities': find_vulnerabilities,
                 'language': language,
-                'framework': framework,
                 'extension': extension_count,
                 'file': file_count,
                 'push_rules': len(rules),
@@ -530,17 +533,21 @@ class SingleRule(object):
             if origin_vulnerability == '':
                 logger.debug(' > continue...')
                 continue
+            code_content = origin_vulnerability.split(":")[2]
             vulnerability = self.parse_match(origin_vulnerability)
             inc_files.append(vulnerability.file_path)
 
+            lang_extend_index = vulnerability.file_path.index(".")
+            lang_extends = Rule().languages[vulnerability.language.lower()]["extensions"]
             # cvi rules start with '110' is function annotation
             # todo 将语言文件后缀从配置文件中获取，通过配置规则来添加不同语言的注释检查
-            if vulnerability.id[:3] == '110' and vulnerability.file_path.endswith(".cpp" or ".c"):
+            if vulnerability.id[:3] == '110' and vulnerability.file_path[lang_extend_index:] in lang_extends:
                 vir_f = open(vulnerability.file_path, 'r')
                 have_annotation = read_before_line(vir_f, vulnerability.line_number)
                 if not have_annotation:
                     ano_dict = {"rule_id": vulnerability.id, "file_path": vulnerability.file_path,
                                 "line_num": vulnerability.line_number, "rule_name": vulnerability.rule_name,
+                                "code_content": code_content,
                                 "solution": vulnerability.solution, "commit_author": vulnerability.commit_author,
                                 "commit_time": vulnerability.commit_time, "level": vulnerability.level}
                     process_result.append(ano_dict)
