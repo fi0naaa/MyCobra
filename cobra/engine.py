@@ -561,7 +561,7 @@ class SingleRule(object):
                     if f in inc_files:
                         continue
                     if f.lower()[-3:] == ".ls":
-                        log_dict = {"rule_id": vulnerability.id, "file_path": vulnerability.file_path,
+                        log_dict = {"rule_id": vulnerability.id, "file_path": str(f),
                                     "level": vulnerability.level,
                                     "rule_name": vulnerability.rule_name, "solution": vulnerability.solution,
                                     "commit_author": vulnerability.commit_author, "commit_time": vulnerability.commit_time}
