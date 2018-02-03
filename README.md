@@ -34,7 +34,7 @@
 > apt安装 :      `sudo apt-get install clang`
 
 #### 3、配置python bindings:
-> 使用pip安装：`sudo pip install clang==版本号`
+> 使用pip安装：`sudo pip install clang==版本号(如:3.4)`
 ##### 注意：clang的版本号和libclang的版本号必须一致。
 
 #### 4、安装MyCobra依赖：
